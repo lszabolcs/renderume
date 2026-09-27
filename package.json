@@ -1,0 +1,19 @@
+{
+	"name": "renderume",
+	"version": "0.0.0",
+	"private": true,
+	"description": "A local-first résumé renderer for developers.",
+	"type": "module",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint .",
+		"check": "biome check ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.13"
+	}
+}

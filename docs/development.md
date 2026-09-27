@@ -13,6 +13,7 @@ Prefer the smallest implementation that preserves the documented CLI and content
 ## Code and file rules
 
 - Use TypeScript for production code.
+- Format supported source files with Biome. Source files use tabs; editors should display a tab as four columns.
 - Keep parsing/normalization separate from rendering and PDF concerns.
 - Treat user content as data; do not silently mutate source files during build.
 - Keep generated output in `dist/` and out of commits.
