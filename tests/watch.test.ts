@@ -26,10 +26,10 @@ describe('startWatch', () => {
 	it('builds initially and rebuilds when a CV source file changes', async () => {
 		const root = await mkdtemp(path.join(tmpdir(), 'renderume-watch-test-'))
 		temporaryRoots.push(root)
+		await Promise.all([mkdir(path.join(root, 'content')), mkdir(path.join(root, 'theme'))])
 		await Promise.all([
-			mkdir(path.join(root, 'content')),
-			mkdir(path.join(root, 'theme')),
 			writeFile(path.join(root, 'cv.config.yaml'), 'output: {}'),
+			writeFile(path.join(root, 'content/summary.md'), 'Initial summary'),
 		])
 		const changedPaths: string[] = []
 		let builds = 0

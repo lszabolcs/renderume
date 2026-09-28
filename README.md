@@ -22,9 +22,9 @@ Create a starter project with `cv init my-cv`. `init` refuses an existing target
 directory, so it cannot overwrite a CV project by accident.
 
 `cv watch` builds both artifacts, prints two localhost URLs, and rebuilds after
-source changes; it never opens a browser tab by itself. Refresh `/html` while
-editing a theme to use browser developer tools, and `/pdf` to inspect the final
-A4 pagination.
+source changes; it never opens a browser tab by itself. `/html` reloads after a
+successful rebuild and supports browser developer tools. `/pdf` remains a raw
+PDF route for inspecting final A4 pagination.
 
 It observes `content/`, `theme/`, and `cv.config.yaml`. Failed rebuilds report
 the validation error and leave the last valid PDF in place. Stop it with

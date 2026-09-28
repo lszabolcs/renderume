@@ -88,10 +88,12 @@ The renderer receives static HTML and resolved CSS and produces the PDF with Chr
 `cv watch` builds the same HTML and PDF artifacts as `cv build`, serves them only
 on `127.0.0.1`, and observes `content/`, `theme/`, and `cv.config.yaml`. It
 prints separate `/html` and `/pdf` routes without opening a browser. The HTML
-route supports theme debugging in browser developer tools; the PDF route remains
-the authoritative A4 pagination view. Each subsequent build runs in a fresh Node
-process so changes to TSX theme dependencies bypass the module cache. A failed
-rebuild leaves the previous generated artifacts intact.
+route supports theme debugging in browser developer tools and reloads after a
+successful rebuild through a local server-sent event. The PDF route remains the
+authoritative A4 pagination view and is served without injected code. Each
+subsequent build runs in a fresh Node process so changes to TSX theme dependencies
+bypass the module cache. A failed rebuild leaves the previous generated artifacts
+intact.
 
 ## Stable content contract
 

@@ -21,3 +21,5 @@ not necessarily match screen rendering.
 - Watch does not introduce a second render path or a web editor.
 - A single local port keeps the two views associated with the same build.
 - Users choose which URL to open; Renderume does not control their browser.
+- The HTML route may include a local live-reload client; the PDF route stays
+  byte-for-byte equivalent to the generated PDF.

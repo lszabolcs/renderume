@@ -36,15 +36,18 @@ program
 		const root = path.resolve(process.cwd(), directory)
 		const output = await build(root)
 		const preview = await startPreview(output.htmlPath, output.pdfPath)
-		console.log(`✓ HTML preview: ${preview.htmlUrl}`)
+		console.log(`✓ HTML preview (live reload): ${preview.htmlUrl}`)
 		console.log(`✓ PDF preview:  ${preview.pdfUrl}`)
 		await startWatch(root, {
 			initialBuild: false,
 			onChange: (sourcePath) => {
 				console.log(`↻ Changed ${path.relative(root, sourcePath)}`)
 			},
-			onResult: ({ output }) => {
+			onResult: ({ output, succeeded }) => {
 				process.stdout.write(output)
+				if (succeeded) {
+					preview.reload()
+				}
 			},
 		})
 		console.log(`✓ Watching ${root}`)
