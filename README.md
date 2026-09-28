@@ -11,6 +11,7 @@ Write your CV in Markdown and YAML, customize its layout with React and CSS, the
 ```bash
 cv init my-cv
 cd my-cv
+cv validate
 cv build
 ```
 
