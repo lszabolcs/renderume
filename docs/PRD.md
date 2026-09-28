@@ -135,7 +135,8 @@ PDF output must:
 
 The default theme must treat experience entries, projects, and skill groups as meaningful blocks.
 
-- Keep a normal block together when it fits on the next page.
+- Keep normal project and skill blocks together when they fit on the next page.
+- Let a long experience item use meaningful remaining page space, but keep its heading and metadata with subsequent content.
 - Keep section headings with subsequent content.
 - Avoid splitting individual bullet items where possible.
 - If a block exceeds a full page, split it safely rather than clipping or dropping content.

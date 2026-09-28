@@ -6,6 +6,9 @@ main {
 
 .section {
 	margin-block: 1.5rem;
+}
+
+.section-keep-together {
 	break-inside: avoid-page;
 	page-break-inside: avoid;
 }
@@ -24,6 +27,12 @@ main {
 .experience-item,
 .project-item {
 	margin-block: 1rem;
+}
+
+.experience-heading,
+.experience-company {
+	break-after: avoid-page;
+	page-break-after: avoid;
 }
 
 .stack {

@@ -1,0 +1,3 @@
+groups:
+  - name: Verification
+    items: [Playwright, PDF, Print CSS]

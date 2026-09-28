@@ -1,0 +1,5 @@
+locale: en-GB
+output:
+  filename: pagination-long-block.pdf
+  pageSize: A4
+  margin: 16mm

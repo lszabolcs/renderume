@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { loadResume } from '../src/load-resume.js'
 
 const exampleRoot = path.resolve(import.meta.dirname, '../examples/minimal-cv')
+const paginationRoot = path.resolve(import.meta.dirname, '../examples/pagination-cv')
 const temporaryRoots: string[] = []
 
 async function copyExample(): Promise<string> {
@@ -78,5 +79,12 @@ describe('loadResume', () => {
 		await writeFile(path.join(root, 'content/summary.md'), '   \n')
 
 		await expect(loadResume(root)).rejects.toThrow('content/summary.md: summary is required')
+	})
+
+	it('loads the long-block pagination fixture', async () => {
+		const resume = await loadResume(paginationRoot)
+
+		expect(resume.experience).toHaveLength(1)
+		expect(resume.experience[0]?.bodyHtml).toContain('frontend tooling current')
 	})
 })

@@ -77,7 +77,7 @@ export function Resume({ cv }: ResumeProps) {
 				</p>
 			</header>
 
-			<Section title="Summary">
+			<Section keepTogether title="Summary">
 				<div className="rich-text" dangerouslySetInnerHTML={{ __html: cv.summaryHtml }} />
 			</Section>
 
@@ -88,7 +88,7 @@ export function Resume({ cv }: ResumeProps) {
 			</Section>
 
 			{cv.projects.length > 0 ? (
-				<Section title="Projects">
+				<Section keepTogether title="Projects">
 					{cv.projects.map((item) => (
 						<ProjectItem {...item} key={item.id} />
 					))}
@@ -96,7 +96,7 @@ export function Resume({ cv }: ResumeProps) {
 			) : null}
 
 			{cv.skills.length > 0 ? (
-				<Section title="Skills">
+				<Section keepTogether title="Skills">
 					<ul>
 						{cv.skills.map((group) => (
 							<SkillGroup {...group} key={group.name} />
@@ -106,7 +106,7 @@ export function Resume({ cv }: ResumeProps) {
 			) : null}
 
 			{cv.educationHtml ? (
-				<Section title="Education">
+				<Section keepTogether title="Education">
 					<KeepTogether>
 						<div className="rich-text" dangerouslySetInnerHTML={{ __html: cv.educationHtml }} />
 					</KeepTogether>

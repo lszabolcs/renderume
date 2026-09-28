@@ -119,9 +119,13 @@ These are theme-owned components. The compiler does not impose their DOM or CSS;
 the starter theme demonstrates the contract with standard print CSS.
 
 - A section title avoids being orphaned at the bottom of a page.
-- An ordinary experience/project/skill block avoids splitting across pages when it fits on a new page.
+- Project and skill blocks avoid splitting across pages when they fit on a new page.
+- Experience metadata avoids being orphaned, but long experience content may break between bullet items.
 - A block taller than a whole page may split; content must never be clipped or lost.
 - `pageBreakBefore: true` requests a page break before an item.
 - A preview shows A4 page boundaries.
+
+`examples/pagination-cv` is a regression fixture for content that is larger than
+one page. It is intentionally separate from the copyable starter template.
 
 The first release supports one-column and main-column-with-short-sidebar themes. The sidebar layout must use CSS Grid, not CSS multi-column. Equal, automatically balanced columns require a dedicated pagination engine and are explicitly out of scope for the MVP.
