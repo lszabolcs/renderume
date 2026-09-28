@@ -66,6 +66,16 @@ describe('cv validate', () => {
 	})
 })
 
+describe('CLI commands', () => {
+	it('exposes watch as the local preview command', async () => {
+		const result = await runCli('--help')
+
+		expect(result.code).toBe(0)
+		expect(result.output).toContain('watch [directory]')
+		expect(result.output).not.toContain('preview [directory]')
+	})
+})
+
 describe('cv init', () => {
 	it('creates a starter project that validates', async () => {
 		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))

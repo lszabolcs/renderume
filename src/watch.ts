@@ -9,6 +9,7 @@ type BuildResult = {
 
 type WatchOptions = {
 	build?: () => Promise<BuildResult>
+	initialBuild?: boolean
 	onChange?: (sourcePath: string) => void
 	onResult?: (result: BuildResult) => void
 }
@@ -95,7 +96,9 @@ export async function startWatch(root: string, options: WatchOptions = {}): Prom
 		watcher.once('ready', resolve)
 		watcher.once('error', reject)
 	})
-	await rebuild()
+	if (options.initialBuild ?? true) {
+		await rebuild()
+	}
 
 	return { close: () => watcher.close() }
 }

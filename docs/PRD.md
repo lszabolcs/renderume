@@ -54,8 +54,7 @@ The initial generated project includes a functioning example CV, a default theme
 | `cv init [directory]` | Create a starter CV project. |
 | `cv build` | Validate source, render HTML, and write HTML/PDF output. |
 | `cv validate` | Validate without generating output; use non-zero exit code on errors. |
-| `cv preview` | Serve a local live preview with visible A4 page boundaries. |
-| `cv watch` | Revalidate and rebuild on content or theme changes. |
+| `cv watch` | Serve local HTML/PDF previews and rebuild them on content or theme changes. |
 
 `cv build` must report output paths. A failed validation must not overwrite the most recent valid PDF.
 
@@ -170,7 +169,7 @@ Validation errors must name the file and field and offer an actionable message.
 Build aborted. Run `cv validate` after fixing the files.
 ```
 
-In preview/watch mode, retain the latest valid document and surface the current validation error in both terminal and preview.
+In watch mode, retain the latest valid document and surface the current validation error in both terminal and preview.
 
 ## Acceptance criteria
 
@@ -184,7 +183,7 @@ The MVP is complete only when:
 6. `pageBreakBefore: true` starts the item on a new page.
 7. Invalid required fields, dates, and e-mail values fail with field-level errors and a non-zero status.
 8. Watch mode reacts to content and theme edits.
-9. Preview identifies A4 page boundaries.
+9. Watch exposes a preview that identifies A4 page boundaries.
 10. The build does not transmit CV data over the network.
 
 ## Explicit future phases

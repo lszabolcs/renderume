@@ -54,4 +54,30 @@ describe('startWatch', () => {
 			await watcher.close()
 		}
 	})
+
+	it('can skip the initial build when another command already built the CV', async () => {
+		const root = await mkdtemp(path.join(tmpdir(), 'renderume-watch-test-'))
+		temporaryRoots.push(root)
+		await Promise.all([
+			mkdir(path.join(root, 'content')),
+			mkdir(path.join(root, 'theme')),
+			writeFile(path.join(root, 'cv.config.yaml'), 'output: {}'),
+		])
+		let builds = 0
+		const watcher = await startWatch(root, {
+			initialBuild: false,
+			build: async () => {
+				builds += 1
+				return { succeeded: true, output: '' }
+			},
+		})
+
+		try {
+			expect(builds).toBe(0)
+			await writeFile(path.join(root, 'cv.config.yaml'), 'output: { filename: cv.pdf }')
+			await waitFor(() => builds === 1)
+		} finally {
+			await watcher.close()
+		}
+	})
 })

@@ -5,9 +5,10 @@
 
 ## Decision
 
-`cv preview` will build both output artifacts and serve them from one
+`cv watch` will build both output artifacts and serve them from one
 loopback-only server: `/html` for the generated static document and `/pdf` for
-the print-ready document. It prints both URLs and never opens a browser.
+the print-ready document. It watches the source files, prints both URLs, and
+never opens a browser.
 
 ## Why
 
@@ -17,6 +18,6 @@ not necessarily match screen rendering.
 
 ## Consequences
 
-- Preview does not introduce a second render path or a web editor.
+- Watch does not introduce a second render path or a web editor.
 - A single local port keeps the two views associated with the same build.
 - Users choose which URL to open; Renderume does not control their browser.

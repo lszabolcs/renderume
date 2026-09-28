@@ -83,19 +83,15 @@ Themes are executable local code. Installing an untrusted theme has the same ris
 
 The renderer receives static HTML and resolved CSS and produces the PDF with Chromium. It must wait for fonts and local assets before printing. Output must remain selectable, searchable text rather than rasterized page images.
 
-### Preview
-
-`cv preview` builds the same HTML and PDF artifacts as `cv build`, then serves
-them only on `127.0.0.1`. It prints separate `/html` and `/pdf` routes without
-opening a browser. The HTML route supports theme debugging in browser developer
-tools; the PDF route remains the authoritative A4 pagination view.
-
 ### Watch
 
-`cv watch` observes `content/`, `theme/`, and `cv.config.yaml`, then runs an
-initial build and rebuilds after a source change. Each build runs in a fresh
-Node process so changes to TSX theme dependencies bypass the module cache. A
-failed rebuild leaves the previous generated artifacts intact.
+`cv watch` builds the same HTML and PDF artifacts as `cv build`, serves them only
+on `127.0.0.1`, and observes `content/`, `theme/`, and `cv.config.yaml`. It
+prints separate `/html` and `/pdf` routes without opening a browser. The HTML
+route supports theme debugging in browser developer tools; the PDF route remains
+the authoritative A4 pagination view. Each subsequent build runs in a fresh Node
+process so changes to TSX theme dependencies bypass the module cache. A failed
+rebuild leaves the previous generated artifacts intact.
 
 ## Stable content contract
 

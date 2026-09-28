@@ -30,21 +30,16 @@ program
 	})
 
 program
-	.command('preview [directory]')
-	.description('build a CV and serve a local A4 preview')
+	.command('watch [directory]')
+	.description('serve local HTML/PDF previews and rebuild them when sources change')
 	.action(async (directory = '.') => {
-		const output = await build(path.resolve(process.cwd(), directory))
+		const root = path.resolve(process.cwd(), directory)
+		const output = await build(root)
 		const preview = await startPreview(output.htmlPath, output.pdfPath)
 		console.log(`✓ HTML preview: ${preview.htmlUrl}`)
 		console.log(`✓ PDF preview:  ${preview.pdfUrl}`)
-	})
-
-program
-	.command('watch [directory]')
-	.description('rebuild a CV when content, theme, or config files change')
-	.action(async (directory = '.') => {
-		const root = path.resolve(process.cwd(), directory)
 		await startWatch(root, {
+			initialBuild: false,
 			onChange: (sourcePath) => {
 				console.log(`↻ Changed ${path.relative(root, sourcePath)}`)
 			},
