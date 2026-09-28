@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { Command } from 'commander'
-import { buildHtml } from './build.js'
+import { build } from './build.js'
 
 const program = new Command()
 	.name('cv')
@@ -9,10 +9,11 @@ const program = new Command()
 
 program
 	.command('build [directory]')
-	.description('compile Markdown content to static HTML')
+	.description('compile Markdown content to static HTML and PDF')
 	.action(async (directory = '.') => {
-		const outputPath = await buildHtml(path.resolve(process.cwd(), directory))
-		console.log(`✓ Wrote ${outputPath}`)
+		const output = await build(path.resolve(process.cwd(), directory))
+		console.log(`✓ Wrote ${output.htmlPath}`)
+		console.log(`✓ Wrote ${output.pdfPath}`)
 	})
 
 await program.parseAsync()

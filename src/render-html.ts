@@ -20,7 +20,7 @@ export function renderHtml(resume: Resume): string {
 	const experience = resume.experience
 		.map((item) => {
 			return `<article>
-  <header><strong>${escapeHtml(item.role)}</strong><span>${escapeHtml(period(item.start, item.end))}</span></header>
+  <header><strong>${escapeHtml(item.role)}</strong><span> · ${escapeHtml(period(item.start, item.end))}</span></header>
   <p>${escapeHtml(item.company)}</p>
   ${markdown.render(item.body)}
 </article>`
