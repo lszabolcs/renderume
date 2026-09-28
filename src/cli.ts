@@ -4,6 +4,7 @@ import { build } from './build.js'
 import { initialize } from './init.js'
 import { startPreview } from './preview.js'
 import { validate } from './validate.js'
+import { startWatch } from './watch.js'
 
 const program = new Command()
 	.name('cv')
@@ -36,6 +37,23 @@ program
 		const preview = await startPreview(output.htmlPath, output.pdfPath)
 		console.log(`✓ HTML preview: ${preview.htmlUrl}`)
 		console.log(`✓ PDF preview:  ${preview.pdfUrl}`)
+	})
+
+program
+	.command('watch [directory]')
+	.description('rebuild a CV when content, theme, or config files change')
+	.action(async (directory = '.') => {
+		const root = path.resolve(process.cwd(), directory)
+		await startWatch(root, {
+			onChange: (sourcePath) => {
+				console.log(`↻ Changed ${path.relative(root, sourcePath)}`)
+			},
+			onResult: ({ output }) => {
+				process.stdout.write(output)
+			},
+		})
+		console.log(`✓ Watching ${root}`)
+		await new Promise<void>(() => {})
 	})
 
 program

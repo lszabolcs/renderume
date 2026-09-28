@@ -90,6 +90,13 @@ them only on `127.0.0.1`. It prints separate `/html` and `/pdf` routes without
 opening a browser. The HTML route supports theme debugging in browser developer
 tools; the PDF route remains the authoritative A4 pagination view.
 
+### Watch
+
+`cv watch` observes `content/`, `theme/`, and `cv.config.yaml`, then runs an
+initial build and rebuilds after a source change. Each build runs in a fresh
+Node process so changes to TSX theme dependencies bypass the module cache. A
+failed rebuild leaves the previous generated artifacts intact.
+
 ## Stable content contract
 
 The initial data format uses YAML for structured fields and Markdown for long-form content. Each experience item is one Markdown file with YAML frontmatter.

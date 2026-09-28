@@ -17,6 +17,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"chokidar": "^5.0.0",
 		"commander": "^14.0.0",
 		"gray-matter": "^4.0.3",
 		"markdown-it": "^14.1.0",
