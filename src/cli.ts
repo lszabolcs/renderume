@@ -2,6 +2,7 @@ import path from 'node:path'
 import { Command } from 'commander'
 import { build } from './build.js'
 import { initialize } from './init.js'
+import { startPreview } from './preview.js'
 import { validate } from './validate.js'
 
 const program = new Command()
@@ -25,6 +26,16 @@ program
 		const output = await build(path.resolve(process.cwd(), directory))
 		console.log(`✓ Wrote ${output.htmlPath}`)
 		console.log(`✓ Wrote ${output.pdfPath}`)
+	})
+
+program
+	.command('preview [directory]')
+	.description('build a CV and serve a local A4 preview')
+	.action(async (directory = '.') => {
+		const output = await build(path.resolve(process.cwd(), directory))
+		const preview = await startPreview(output.htmlPath, output.pdfPath)
+		console.log(`✓ HTML preview: ${preview.htmlUrl}`)
+		console.log(`✓ PDF preview:  ${preview.pdfUrl}`)
 	})
 
 program

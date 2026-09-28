@@ -83,6 +83,13 @@ Themes are executable local code. Installing an untrusted theme has the same ris
 
 The renderer receives static HTML and resolved CSS and produces the PDF with Chromium. It must wait for fonts and local assets before printing. Output must remain selectable, searchable text rather than rasterized page images.
 
+### Preview
+
+`cv preview` builds the same HTML and PDF artifacts as `cv build`, then serves
+them only on `127.0.0.1`. It prints separate `/html` and `/pdf` routes without
+opening a browser. The HTML route supports theme debugging in browser developer
+tools; the PDF route remains the authoritative A4 pagination view.
+
 ## Stable content contract
 
 The initial data format uses YAML for structured fields and Markdown for long-form content. Each experience item is one Markdown file with YAML frontmatter.

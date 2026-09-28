@@ -13,12 +13,17 @@ cv init my-cv
 cd my-cv
 cv validate
 cv build
+cv preview
 ```
 
 The generated project will keep content in YAML and Markdown, themes in TSX and CSS, and generated output outside version control.
 
 Create a starter project with `cv init my-cv`. `init` refuses an existing target
 directory, so it cannot overwrite a CV project by accident.
+
+`cv preview` builds both artifacts, then prints two localhost URLs; it never
+opens a browser tab by itself. Open `/html` while editing a theme to use browser
+developer tools, and `/pdf` to inspect the final A4 pagination.
 
 ```text
 my-cv/
