@@ -1,4 +1,10 @@
 // biome-ignore-all lint/security/noDangerouslySetInnerHtml: Renderume parses Markdown with raw HTML disabled before it reaches the theme.
+import { ExperienceItem } from './components/ExperienceItem.js'
+import { KeepTogether } from './components/KeepTogether.js'
+import { ProjectItem } from './components/ProjectItem.js'
+import { Section } from './components/Section.js'
+import { SkillGroup } from './components/SkillGroup.js'
+
 type ResumeData = {
 	profile: {
 		name: string
@@ -42,10 +48,6 @@ type ResumeProps = {
 	cv: ResumeData
 }
 
-function period(start: string, end?: string): string {
-	return end ? `${start} — ${end}` : start
-}
-
 function linkLabel(url: string): string {
 	return url.replace(/^https?:\/\//, '')
 }
@@ -56,64 +58,36 @@ export function Resume({ cv }: ResumeProps) {
 		Boolean(url),
 	)
 	const sections = [
-		<section key="summary">
-			<h2>Summary</h2>
-			<div dangerouslySetInnerHTML={{ __html: cv.summaryHtml }} />
-		</section>,
-		<section key="experience">
-			<h2>Experience</h2>
+		<Section key="summary" title="Summary">
+			<div className="rich-text" dangerouslySetInnerHTML={{ __html: cv.summaryHtml }} />
+		</Section>,
+		<Section key="experience" title="Experience">
 			{cv.experience.map((item) => (
-				<article className={item.pageBreakBefore ? 'page-break-before' : undefined} key={item.id}>
-					<header>
-						<strong>{item.role}</strong>
-						<span> · {period(item.start, item.end)}</span>
-					</header>
-					<p>
-						{item.company}
-						{item.location ? ` · ${item.location}` : ''}
-					</p>
-					<div dangerouslySetInnerHTML={{ __html: item.bodyHtml }} />
-					{item.stack.length > 0 ? <p>{item.stack.join(' · ')}</p> : null}
-				</article>
+				<ExperienceItem {...item} key={item.id} />
 			))}
-		</section>,
+		</Section>,
 		cv.projects.length > 0 ? (
-			<section key="projects">
-				<h2>Projects</h2>
+			<Section key="projects" title="Projects">
 				{cv.projects.map((item) => (
-					<article className={item.pageBreakBefore ? 'page-break-before' : undefined} key={item.id}>
-						<header>
-							<strong>{item.name}</strong>
-							{item.url ? (
-								<span>
-									{' · '}
-									<a href={item.url}>{linkLabel(item.url)}</a>
-								</span>
-							) : null}
-						</header>
-						<div dangerouslySetInnerHTML={{ __html: item.bodyHtml }} />
-						{item.stack.length > 0 ? <p>{item.stack.join(' · ')}</p> : null}
-					</article>
+					<ProjectItem {...item} key={item.id} />
 				))}
-			</section>
+			</Section>
 		) : null,
 		cv.skills.length > 0 ? (
-			<section key="skills">
-				<h2>Skills</h2>
+			<Section key="skills" title="Skills">
 				<ul>
 					{cv.skills.map((group) => (
-						<li key={group.name}>
-							<strong>{group.name}:</strong> {group.items.join(', ')}
-						</li>
+						<SkillGroup {...group} key={group.name} />
 					))}
 				</ul>
-			</section>
+			</Section>
 		) : null,
 		cv.educationHtml ? (
-			<section key="education">
-				<h2>Education</h2>
-				<div dangerouslySetInnerHTML={{ __html: cv.educationHtml }} />
-			</section>
+			<Section key="education" title="Education">
+				<KeepTogether>
+					<div className="rich-text" dangerouslySetInnerHTML={{ __html: cv.educationHtml }} />
+				</KeepTogether>
+			</Section>
 		) : null,
 	]
 

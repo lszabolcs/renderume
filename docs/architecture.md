@@ -115,6 +115,9 @@ choices, so they do not belong in the compiler configuration.
 
 The default theme must render with semantic components such as `Section`, `ExperienceItem`, `ProjectItem`, `SkillGroup`, and `KeepTogether`.
 
+These are theme-owned components. The compiler does not impose their DOM or CSS;
+the starter theme demonstrates the contract with standard print CSS.
+
 - A section title avoids being orphaned at the bottom of a page.
 - An ordinary experience/project/skill block avoids splitting across pages when it fits on a new page.
 - A block taller than a whole page may split; content must never be clipped or lost.

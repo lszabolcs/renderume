@@ -29,7 +29,8 @@ export async function build(root: string): Promise<BuildOutput> {
 		renderTheme(path.join(root, 'theme/Resume.tsx'), resume),
 		readOptionalFile(path.join(root, 'theme/styles.css')),
 	])
-	const html = renderHtml(resume.profile.name, body, styles)
+	const pageStyles = `@page { size: ${resume.config.output.pageSize}; margin: ${resume.config.output.margin}; }`
+	const html = renderHtml(resume.profile.name, body, `${styles}\n${pageStyles}`)
 
 	await mkdir(outputDirectory, { recursive: true })
 	await writeFile(htmlPath, html, 'utf8')
@@ -41,13 +42,7 @@ export async function build(root: string): Promise<BuildOutput> {
 		await page.evaluate(() => document.fonts.ready)
 		await page.pdf({
 			path: temporaryPdfPath,
-			format: resume.config.output.pageSize,
-			margin: {
-				top: resume.config.output.margin,
-				right: resume.config.output.margin,
-				bottom: resume.config.output.margin,
-				left: resume.config.output.margin,
-			},
+			preferCSSPageSize: true,
 			printBackground: true,
 		})
 		await rename(temporaryPdfPath, pdfPath)

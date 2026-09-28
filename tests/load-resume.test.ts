@@ -28,8 +28,13 @@ describe('loadResume', () => {
 		expect(resume.profile.name).toBe('Alex Morgan')
 		expect(resume.profile.contact.email).toBe('alex@example.com')
 		expect(resume.summaryHtml).toContain('Frontend engineer')
-		expect(resume.experience).toHaveLength(1)
-		expect(resume.experience[0]).toMatchObject({
+		expect(resume.experience).toHaveLength(3)
+		expect(resume.experience.map((item) => item.company)).toEqual([
+			'Pulsar Studio',
+			'Northstar',
+			'Redwood Labs',
+		])
+		expect(resume.experience[1]).toMatchObject({
 			company: 'Northstar',
 			role: 'Frontend Engineer',
 		})
