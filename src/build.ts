@@ -21,9 +21,10 @@ async function readOptionalFile(filePath: string): Promise<string> {
 export async function build(root: string): Promise<BuildOutput> {
 	const resume = await loadResume(root)
 	const outputDirectory = path.join(root, 'dist')
-	const htmlPath = path.join(outputDirectory, 'cv.html')
-	const pdfPath = path.join(outputDirectory, 'cv.pdf')
-	const temporaryPdfPath = path.join(outputDirectory, 'cv.pdf.tmp')
+	const filename = resume.config.output.filename
+	const htmlPath = path.join(outputDirectory, filename.replace(/\.pdf$/i, '.html'))
+	const pdfPath = path.join(outputDirectory, filename)
+	const temporaryPdfPath = path.join(outputDirectory, `${filename}.tmp`)
 	const [body, styles] = await Promise.all([
 		renderTheme(path.join(root, 'theme/Resume.tsx'), resume),
 		readOptionalFile(path.join(root, 'theme/styles.css')),
@@ -40,12 +41,12 @@ export async function build(root: string): Promise<BuildOutput> {
 		await page.evaluate(() => document.fonts.ready)
 		await page.pdf({
 			path: temporaryPdfPath,
-			format: 'A4',
+			format: resume.config.output.pageSize,
 			margin: {
-				top: '16mm',
-				right: '16mm',
-				bottom: '16mm',
-				left: '16mm',
+				top: resume.config.output.margin,
+				right: resume.config.output.margin,
+				bottom: resume.config.output.margin,
+				left: resume.config.output.margin,
 			},
 			printBackground: true,
 		})

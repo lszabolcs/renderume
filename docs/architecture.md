@@ -44,7 +44,7 @@ A generated CV project must have this structure:
 
 ```text
 my-cv/
-├── cv.config.yaml            # Output settings and section order
+├── cv.config.yaml            # Output settings
 ├── content/
 │   ├── profile.yaml
 │   ├── summary.md
@@ -87,6 +87,12 @@ The renderer receives static HTML and resolved CSS and produces the PDF with Chr
 
 The initial data format uses YAML for structured fields and Markdown for long-form content. Each experience item is one Markdown file with YAML frontmatter.
 
+`cv.config.yaml` supplies the output filename and A4 margin. `profile.yaml` holds
+the name, title, optional location, and a nested `contact` object. `skills.yaml`
+contains named groups of string items;
+`education.md` is optional. Projects follow the same frontmatter-plus-Markdown
+shape as experience items, with `name` in place of `company`, `role`, and dates.
+
 ```md
 ---
 company: Acme Inc.
@@ -101,6 +107,9 @@ pageBreakBefore: false
 ```
 
 The theme only receives the normalized type, never raw frontmatter. A change to the documented source format requires a migration plan, fixtures, and documentation update.
+
+The theme decides which sections to render and their order. These are layout
+choices, so they do not belong in the compiler configuration.
 
 ## Print and pagination contract
 

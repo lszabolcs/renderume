@@ -24,27 +24,36 @@ describe('loadResume', () => {
 	it('loads the minimal CV source', async () => {
 		const resume = await loadResume(await copyExample())
 
-		expect(resume.profile).toEqual({
-			name: 'Alex Morgan',
-			title: 'Frontend Engineer',
-			email: 'alex@example.com',
-		})
+		expect(resume.config.output.filename).toBe('alex-morgan-cv.pdf')
+		expect(resume.profile.name).toBe('Alex Morgan')
+		expect(resume.profile.contact.email).toBe('alex@example.com')
 		expect(resume.summaryHtml).toContain('Frontend engineer')
 		expect(resume.experience).toHaveLength(1)
 		expect(resume.experience[0]).toMatchObject({
 			company: 'Northstar',
 			role: 'Frontend Engineer',
 		})
+		expect(resume.projects[0]).toMatchObject({
+			name: 'Component Atlas',
+			stack: ['TypeScript', 'React', 'Storybook'],
+		})
+		expect(resume.skills).toContainEqual({
+			name: 'Frontend',
+			items: ['TypeScript', 'React', 'CSS', 'Accessibility', 'Performance'],
+		})
+		expect(resume.educationHtml).toContain('BSc')
 	})
 
 	it('reports the source file and field for an invalid profile', async () => {
 		const root = await copyExample()
 		await writeFile(
 			path.join(root, 'content/profile.yaml'),
-			'name: Alex Morgan\ntitle: Frontend Engineer\nemail: \n',
+			'name: Alex Morgan\ntitle: Frontend Engineer\ncontact:\n  email: \n',
 		)
 
-		await expect(loadResume(root)).rejects.toThrow('content/profile.yaml: email is required')
+		await expect(loadResume(root)).rejects.toThrow(
+			'content/profile.yaml: contact.email is required',
+		)
 	})
 
 	it('reports the source file and field for an invalid experience item', async () => {

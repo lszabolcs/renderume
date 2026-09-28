@@ -1,0 +1,5 @@
+locale: en-GB
+output:
+  filename: alex-morgan-cv.pdf
+  pageSize: A4
+  margin: 16mm

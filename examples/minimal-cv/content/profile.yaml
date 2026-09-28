@@ -1,3 +1,8 @@
 name: Alex Morgan
 title: Frontend Engineer
-email: alex@example.com
+location: London, United Kingdom
+contact:
+  email: alex@example.com
+  website: https://alex.example.com
+  github: https://github.com/alexmorgan
+  linkedin: https://www.linkedin.com/in/alexmorgan
