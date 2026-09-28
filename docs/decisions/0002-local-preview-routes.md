@@ -23,3 +23,5 @@ not necessarily match screen rendering.
 - Users choose which URL to open; Renderume does not control their browser.
 - The HTML route may include a local live-reload client; the PDF route stays
   byte-for-byte equivalent to the generated PDF.
+- A failed rebuild is reported through the local HTML client while the last
+  valid artifacts remain available.

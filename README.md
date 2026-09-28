@@ -27,8 +27,8 @@ successful rebuild and supports browser developer tools. `/pdf` remains a raw
 PDF route for inspecting final A4 pagination.
 
 It observes `content/`, `theme/`, and `cv.config.yaml`. Failed rebuilds report
-the validation error and leave the last valid PDF in place. Stop it with
-`Ctrl+C`.
+the validation error in the terminal and an HTML preview banner, while leaving
+the last valid PDF in place. Stop it with `Ctrl+C`.
 
 ```text
 my-cv/

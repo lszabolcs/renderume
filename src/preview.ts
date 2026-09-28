@@ -8,15 +8,33 @@ export type PreviewServer = {
 	htmlUrl: string
 	pdfUrl: string
 	reload: () => void
+	showError: (message: string) => void
 }
 
 function addLiveReload(html: string): string {
-	const script = `<script>new EventSource('/events').addEventListener('reload', () => location.reload())</script>`
+	const script = `<script>
+const source = new EventSource('/events')
+source.addEventListener('reload', () => location.reload())
+source.addEventListener('build-error', (event) => {
+  const id = 'renderume-watch-error'
+  const banner = document.getElementById(id) ?? document.createElement('div')
+  banner.id = id
+  Object.assign(banner.style, { background: '#fff3cd', borderBottom: '1px solid #664d03', color: '#664d03', fontFamily: 'system-ui, sans-serif', padding: '12px 16px', whiteSpace: 'pre-wrap' })
+  banner.textContent = 'Renderume rebuild failed\\n' + JSON.parse(event.data)
+  document.body.prepend(banner)
+})
+</script>`
 	return html.includes('</body>') ? html.replace('</body>', `${script}</body>`) : `${html}${script}`
 }
 
 export async function startPreview(htmlPath: string, pdfPath: string): Promise<PreviewServer> {
 	const eventClients = new Set<ServerResponse>()
+	function broadcast(event: string, data: string): void {
+		for (const client of eventClients) {
+			client.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`)
+		}
+	}
+
 	const server = createServer(async (request, response) => {
 		if (request.method !== 'GET') {
 			response.writeHead(405)
@@ -69,11 +87,8 @@ export async function startPreview(htmlPath: string, pdfPath: string): Promise<P
 	return {
 		htmlUrl: `${baseUrl}/html`,
 		pdfUrl: `${baseUrl}/pdf`,
-		reload: () => {
-			for (const client of eventClients) {
-				client.write('event: reload\ndata: now\n\n')
-			}
-		},
+		reload: () => broadcast('reload', 'now'),
+		showError: (message) => broadcast('build-error', message),
 		close: () =>
 			new Promise((resolve, reject) => {
 				for (const client of eventClients) {

@@ -47,6 +47,8 @@ program
 				process.stdout.write(output)
 				if (succeeded) {
 					preview.reload()
+				} else {
+					preview.showError(output.trim())
 				}
 			},
 		})

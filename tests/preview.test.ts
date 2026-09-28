@@ -30,9 +30,41 @@ describe('startPreview', () => {
 			expect(await fetch(preview.htmlUrl).then((response) => response.text())).toContain(
 				"new EventSource('/events')",
 			)
+			expect(await fetch(preview.htmlUrl).then((response) => response.text())).toContain(
+				"source.addEventListener('build-error'",
+			)
 			expect(pdf.headers.get('content-type')).toContain('application/pdf')
 			expect(await pdf.text()).toBe('%PDF-1.4')
 		} finally {
+			await preview.close()
+		}
+	})
+
+	it('notifies connected HTML previews about a failed rebuild', async () => {
+		const root = await mkdtemp(path.join(tmpdir(), 'renderume-preview-test-'))
+		temporaryRoots.push(root)
+		const htmlPath = path.join(root, 'resume.html')
+		const pdfPath = path.join(root, 'resume.pdf')
+		await writeFile(htmlPath, '<main>Résumé</main>')
+		await writeFile(pdfPath, '%PDF-1.4')
+		const preview = await startPreview(htmlPath, pdfPath)
+		const controller = new AbortController()
+
+		try {
+			const events = await fetch(preview.htmlUrl.replace('/html', '/events'), {
+				signal: controller.signal,
+			})
+			const reader = events.body?.getReader()
+			expect(reader).toBeDefined()
+
+			await reader?.read()
+			preview.showError('content/profile.yaml: title is required')
+			const event = await reader?.read()
+
+			expect(new TextDecoder().decode(event?.value)).toContain('event: build-error')
+			expect(new TextDecoder().decode(event?.value)).toContain('title is required')
+		} finally {
+			controller.abort()
 			await preview.close()
 		}
 	})

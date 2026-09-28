@@ -89,7 +89,8 @@ The renderer receives static HTML and resolved CSS and produces the PDF with Chr
 on `127.0.0.1`, and observes `content/`, `theme/`, and `cv.config.yaml`. It
 prints separate `/html` and `/pdf` routes without opening a browser. The HTML
 route supports theme debugging in browser developer tools and reloads after a
-successful rebuild through a local server-sent event. The PDF route remains the
+successful rebuild through a local server-sent event. A failed rebuild adds a
+local error banner to the previous HTML document. The PDF route remains the
 authoritative A4 pagination view and is served without injected code. Each
 subsequent build runs in a fresh Node process so changes to TSX theme dependencies
 bypass the module cache. A failed rebuild leaves the previous generated artifacts
