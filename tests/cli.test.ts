@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { access, cp, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { access, cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -63,5 +63,39 @@ describe('cv validate', () => {
 		expect(result.code).toBe(1)
 		expect(result.output).toContain('content/profile.yaml: title is required')
 		await expect(access(path.join(root, 'dist'))).rejects.toMatchObject({ code: 'ENOENT' })
+	})
+})
+
+describe('cv init', () => {
+	it('creates a starter project that validates', async () => {
+		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
+		temporaryRoots.push(parent)
+		const target = path.join(parent, 'my-cv')
+		const result = await runCli('init', target)
+
+		expect(result.code).toBe(0)
+		expect(result.output).toContain(`✓ Created ${target}`)
+		await expect(access(path.join(target, 'cv.config.yaml'))).resolves.toBeUndefined()
+		await expect(access(path.join(target, 'package.json'))).resolves.toBeUndefined()
+		await expect(
+			access(path.join(target, 'theme/components/ExperienceItem.tsx')),
+		).resolves.toBeUndefined()
+
+		const validation = await runCli('validate', target)
+		expect(validation.code).toBe(0)
+	})
+
+	it('refuses an existing destination without changing its files', async () => {
+		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
+		temporaryRoots.push(parent)
+		const target = path.join(parent, 'my-cv')
+		await mkdir(target)
+		await writeFile(path.join(target, 'keep.txt'), 'do not overwrite')
+
+		const result = await runCli('init', target)
+
+		expect(result.code).toBe(1)
+		expect(result.output).toContain('destination already exists')
+		expect(await readFile(path.join(target, 'keep.txt'), 'utf8')).toBe('do not overwrite')
 	})
 })

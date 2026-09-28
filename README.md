@@ -17,6 +17,9 @@ cv build
 
 The generated project will keep content in YAML and Markdown, themes in TSX and CSS, and generated output outside version control.
 
+Create a starter project with `cv init my-cv`. `init` refuses an existing target
+directory, so it cannot overwrite a CV project by accident.
+
 ```text
 my-cv/
 ├── cv.config.yaml

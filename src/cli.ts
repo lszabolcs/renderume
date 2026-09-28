@@ -1,12 +1,22 @@
 import path from 'node:path'
 import { Command } from 'commander'
 import { build } from './build.js'
+import { initialize } from './init.js'
 import { validate } from './validate.js'
 
 const program = new Command()
 	.name('cv')
 	.description('Renderume — a local-first résumé renderer for developers')
 	.version('0.0.0')
+
+program
+	.command('init <directory>')
+	.description('create a starter CV project')
+	.action(async (directory) => {
+		const target = path.resolve(process.cwd(), directory)
+		await initialize(target)
+		console.log(`✓ Created ${target}`)
+	})
 
 program
 	.command('build [directory]')

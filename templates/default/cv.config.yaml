@@ -1,0 +1,5 @@
+locale: en-GB
+output:
+  filename: my-cv.pdf
+  pageSize: A4
+  margin: 16mm

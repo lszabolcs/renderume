@@ -1,0 +1,8 @@
+{
+	"name": "my-cv",
+	"private": true,
+	"scripts": {
+		"build": "cv build",
+		"validate": "cv validate"
+	}
+}

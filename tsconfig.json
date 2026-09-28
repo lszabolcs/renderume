@@ -10,5 +10,11 @@
 		"skipLibCheck": true,
 		"noUncheckedIndexedAccess": true
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "examples/**/*.tsx"]
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"tests/**/*.ts",
+		"examples/**/*.tsx",
+		"templates/**/*.tsx"
+	]
 }
