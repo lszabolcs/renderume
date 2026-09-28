@@ -14,6 +14,13 @@
 		"lineWidth": 100,
 		"lineEnding": "lf"
 	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"jsxQuoteStyle": "double",
+			"semicolons": "asNeeded"
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {

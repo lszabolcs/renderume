@@ -8,12 +8,20 @@
 		"node": ">=22"
 	},
 	"scripts": {
+		"cv": "tsx src/cli.ts",
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"lint": "biome lint .",
-		"check": "biome check ."
+		"check": "biome check .",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"commander": "^14.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.13"
+		"@biomejs/biome": "^2.4.13",
+		"@types/node": "^24.0.0",
+		"tsx": "^4.20.0",
+		"typescript": "^5.9.0"
 	}
 }
