@@ -29,7 +29,7 @@ describe('loadResume', () => {
 			title: 'Frontend Engineer',
 			email: 'alex@example.com',
 		})
-		expect(resume.summary).toContain('Frontend engineer')
+		expect(resume.summaryHtml).toContain('Frontend engineer')
 		expect(resume.experience).toHaveLength(1)
 		expect(resume.experience[0]).toMatchObject({
 			company: 'Northstar',

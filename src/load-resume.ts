@@ -3,6 +3,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import matter from 'gray-matter'
 import { parse as parseYaml } from 'yaml'
+import { renderMarkdown } from './render-markdown.js'
 import type { Experience, Profile, Resume } from './types.js'
 
 function requiredString(value: unknown, field: string, source: string): string {
@@ -44,7 +45,7 @@ async function loadExperience(root: string): Promise<Experience[]> {
 				role: requiredString(data.role, 'role', sourcePath),
 				start: requiredString(data.start, 'start', sourcePath),
 				end: typeof data.end === 'string' ? data.end : undefined,
-				body: requiredString(parsed.content, 'Markdown body', sourcePath),
+				bodyHtml: renderMarkdown(requiredString(parsed.content, 'Markdown body', sourcePath)),
 			}
 		}),
 	)
@@ -59,7 +60,9 @@ export async function loadResume(root: string): Promise<Resume> {
 
 	return {
 		profile,
-		summary: requiredString(summary, 'summary', path.join(root, 'content/summary.md')),
+		summaryHtml: renderMarkdown(
+			requiredString(summary, 'summary', path.join(root, 'content/summary.md')),
+		),
 		experience,
 	}
 }

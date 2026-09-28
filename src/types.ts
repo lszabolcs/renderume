@@ -9,11 +9,11 @@ export type Experience = {
 	role: string
 	start: string
 	end?: string
-	body: string
+	bodyHtml: string
 }
 
 export type Resume = {
 	profile: Profile
-	summary: string
+	summaryHtml: string
 	experience: Experience[]
 }
