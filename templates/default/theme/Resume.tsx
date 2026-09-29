@@ -60,13 +60,13 @@ export function Resume({ cv }: ResumeProps) {
 
 	return (
 		<main>
-			<header>
+			<header className="resume-header">
 				<h1>{cv.profile.name}</h1>
-				<p>
+				<p className="resume-title">
 					{cv.profile.title}
 					{cv.profile.location ? ` · ${cv.profile.location}` : ''}
 				</p>
-				<p>
+				<p className="resume-contact">
 					<a href={`mailto:${contact.email}`}>{contact.email}</a>
 					{links.map((url) => (
 						<span key={url}>
