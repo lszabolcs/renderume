@@ -59,8 +59,7 @@ my-cv/
 │   ├── styles.css
 │   └── print.css
 ├── public/                   # Optional local assets
-├── dist/                     # Generated; ignored by Git
-└── package.json
+└── dist/                     # Generated; ignored by Git
 ```
 
 `content/`, `theme/`, and `cv.config.yaml` are the user-owned source of truth. `dist/` is never an input and is ignored by Git.

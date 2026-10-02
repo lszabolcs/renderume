@@ -1,14 +1,42 @@
 # My CV
 
-Edit the files in `content/` for your data and `theme/` for layout and print
-styles.
+This directory is your CV source. It intentionally has no `package.json`: the
+`cv` command is provided by Renderume, not this project.
 
-The top of `theme/styles.css` defines the default theme's CSS custom properties
-for typography, colors, content width, and spacing.
+## Start here
+
+1. Replace the placeholder details in `content/profile.yaml`.
+2. Write a short introduction in `content/summary.md`.
+3. Add or remove Markdown files in `content/experience/` and `content/projects/`.
+4. Update grouped skills in `content/skills.yaml` and optional education in
+   `content/education.md`.
+
+Check the source before creating files:
 
 ```bash
 cv validate
+```
+
+Build the static HTML and print-ready PDF:
+
+```bash
 cv build
 ```
 
-Generated HTML and PDF files are written to `dist/`.
+For local development, run the live HTML and PDF preview:
+
+```bash
+cv watch
+```
+
+`cv watch` prints an HTML URL with live reload for browser developer tools and a
+PDF URL for final A4 pagination. It never opens a browser window itself.
+
+## Layout
+
+Edit `theme/Resume.tsx` to change document structure and `theme/styles.css` for
+layout and print styles. This default template is a one-column layout. The CSS
+custom properties at the top of `theme/styles.css` control typography, colors,
+content width, and spacing.
+
+Generated HTML and PDF files are written to `dist/`; do not edit or commit them.

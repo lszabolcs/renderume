@@ -86,7 +86,9 @@ describe('cv init', () => {
 		expect(result.code).toBe(0)
 		expect(result.output).toContain(`✓ Created ${target}`)
 		await expect(access(path.join(target, 'cv.config.yaml'))).resolves.toBeUndefined()
-		await expect(access(path.join(target, 'package.json'))).resolves.toBeUndefined()
+		await expect(access(path.join(target, 'package.json'))).rejects.toMatchObject({
+			code: 'ENOENT',
+		})
 		await expect(
 			access(path.join(target, 'theme/components/ExperienceItem.tsx')),
 		).resolves.toBeUndefined()
@@ -105,6 +107,9 @@ describe('cv init', () => {
 		expect(await readFile(path.join(target, 'theme/Resume.tsx'), 'utf8')).toContain(
 			'sidebar-layout',
 		)
+		await expect(access(path.join(target, 'package.json'))).rejects.toMatchObject({
+			code: 'ENOENT',
+		})
 
 		const validation = await runCli('validate', target)
 		expect(validation.code).toBe(0)
