@@ -95,6 +95,32 @@ describe('cv init', () => {
 		expect(validation.code).toBe(0)
 	})
 
+	it('creates the sidebar starter project when requested', async () => {
+		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
+		temporaryRoots.push(parent)
+		const target = path.join(parent, 'sidebar-cv')
+		const result = await runCli('init', target, '--template', 'sidebar')
+
+		expect(result.code).toBe(0)
+		expect(await readFile(path.join(target, 'theme/Resume.tsx'), 'utf8')).toContain(
+			'sidebar-layout',
+		)
+
+		const validation = await runCli('validate', target)
+		expect(validation.code).toBe(0)
+	})
+
+	it('rejects an unknown starter template', async () => {
+		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
+		temporaryRoots.push(parent)
+		const target = path.join(parent, 'unknown-template-cv')
+		const result = await runCli('init', target, '--template', 'unknown')
+
+		expect(result.code).toBe(1)
+		expect(result.output).toContain('unknown template "unknown"')
+		await expect(access(target)).rejects.toMatchObject({ code: 'ENOENT' })
+	})
+
 	it('refuses an existing destination without changing its files', async () => {
 		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
 		temporaryRoots.push(parent)

@@ -22,7 +22,7 @@ HTML + PDF
 
 ## Repository structure
 
-This repository will contain the CLI and its starter/theme assets:
+This repository will contain the CLI and its starter template assets:
 
 ```text
 renderume/
@@ -35,7 +35,7 @@ renderume/
 │   ├── development.md
 │   └── decisions/
 ├── src/                      # CLI and compiler implementation
-├── templates/                # Files copied by `cv init`
+├── templates/                # Complete starter projects copied by `cv init`
 ├── tests/
 └── package.json
 ```
@@ -78,6 +78,11 @@ The core must not contain decisions about a particular visual layout.
 A theme is local React/TSX plus CSS. The compiler loads `theme/Resume.tsx`; it must export a React component named `Resume` or a default component. That component receives `ResumeData` and renders static markup. An optional `theme/styles.css` is embedded with the rendered document. Themes may control hierarchy, layout, typography, and which optional fields they show. Themes must not read content files themselves or mutate source data.
 
 Themes are executable local code. Installing an untrusted theme has the same risk profile as installing untrusted npm code.
+
+Each starter template contains one active `theme/` directory. The first-party
+`default` and `sidebar` templates are complete, self-contained CV projects and
+use the same normalized `ResumeData` and content format. `cv init` selects a
+template; this only changes the initial files, not the content contract.
 
 ### Renderer
 

@@ -47,6 +47,19 @@ my-cv/
 - PDF output respects content-level page-break rules.
 - Small scope: no editor UI, accounts, AI, ATS scoring, or cover letters.
 
+## Templates
+
+`cv init` creates the one-column default starter. The optional sidebar starter
+uses the same YAML and Markdown content contract, but starts with a CSS Grid
+layout and a concise contact-and-skills sidebar:
+
+```bash
+cv init my-cv --template sidebar
+```
+
+Each template is a complete, self-contained CV project. Templates do not change
+the content format; they only supply different initial theme and sample files.
+
 ## Documentation
 
 - [Product requirements](docs/PRD.md)

@@ -1,0 +1,5 @@
+groups:
+  - name: Frontend
+    items: [TypeScript, React, CSS, Accessibility]
+  - name: Tooling
+    items: [Git, Playwright, Vite]

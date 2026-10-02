@@ -14,9 +14,10 @@ const program = new Command()
 program
 	.command('init <directory>')
 	.description('create a starter CV project')
-	.action(async (directory) => {
+	.option('-t, --template <name>', 'starter template to copy', 'default')
+	.action(async (directory, options) => {
 		const target = path.resolve(process.cwd(), directory)
-		await initialize(target)
+		await initialize(target, options.template)
 		console.log(`✓ Created ${target}`)
 	})
 

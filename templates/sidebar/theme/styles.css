@@ -1,0 +1,238 @@
+:root {
+	--font-sans:
+		Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-size-root: 10pt;
+	--font-size-display: 2.55rem;
+	--font-size-body-large: 1.05rem;
+	--font-size-meta: 0.77rem;
+	--font-size-overline: 0.68rem;
+	--font-weight-regular: 400;
+	--font-weight-medium: 540;
+	--font-weight-semibold: 620;
+	--font-weight-bold: 700;
+	--font-weight-display: 720;
+	--color-ink: #10233c;
+	--color-text: #34445a;
+	--color-subtle: #607086;
+	--color-muted: #708096;
+	--color-accent: #0f766e;
+	--color-accent-underline: #99d8d0;
+	--color-rule: #cfdddf;
+	--content-width: 176mm;
+	--sidebar-width: 43mm;
+	--layout-gap: 8mm;
+	--space-section: 1.65rem;
+	--space-item: 1.15rem;
+	--space-header: 1.45rem;
+	color: var(--color-text);
+	font-family: var(--font-sans);
+	font-size: var(--font-size-root);
+	font-weight: var(--font-weight-regular);
+	line-height: 1.55;
+	text-rendering: optimizeLegibility;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+.sidebar-resume {
+	max-width: var(--content-width);
+	margin: 0 auto;
+}
+
+.sidebar-header {
+	margin-bottom: var(--space-header);
+	padding-bottom: var(--space-header);
+	border-bottom: 1px solid var(--color-rule);
+}
+
+h1,
+h2,
+h3,
+p {
+	margin-top: 0;
+}
+
+h1 {
+	margin-bottom: 0.45rem;
+	color: var(--color-ink);
+	font-size: var(--font-size-display);
+	font-weight: var(--font-weight-display);
+	letter-spacing: -0.055em;
+	line-height: 1;
+}
+
+.resume-title {
+	margin-bottom: 0;
+	color: var(--color-subtle);
+	font-size: var(--font-size-body-large);
+	font-weight: var(--font-weight-medium);
+}
+
+.sidebar-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+	gap: var(--layout-gap);
+	align-items: start;
+	break-inside: auto;
+	page-break-inside: auto;
+}
+
+.resume-main,
+.resume-sidebar {
+	min-width: 0;
+}
+
+.resume-sidebar {
+	padding-left: 1.05rem;
+	border-left: 1px solid var(--color-rule);
+}
+
+a {
+	color: var(--color-accent);
+	font-weight: var(--font-weight-medium);
+	text-decoration-color: var(--color-accent-underline);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.16em;
+}
+
+.section {
+	margin-block: var(--space-section);
+}
+
+.section:first-child {
+	margin-top: 0;
+}
+
+.section-keep-together,
+.project-item,
+.skill-group {
+	break-inside: avoid-page;
+	page-break-inside: avoid;
+}
+
+.section-title {
+	margin-bottom: 0.8rem;
+	color: var(--color-accent);
+	font-size: var(--font-size-overline);
+	font-weight: var(--font-weight-bold);
+	letter-spacing: 0.13em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	break-after: avoid-page;
+	page-break-after: avoid;
+}
+
+.rich-text > :last-child {
+	margin-bottom: 0;
+}
+
+.rich-text p {
+	margin-bottom: 0.75rem;
+}
+
+.rich-text ul {
+	margin-block: 0.75rem 0;
+	padding-left: 1.2rem;
+}
+
+.rich-text li + li {
+	margin-top: 0.28rem;
+}
+
+.experience-item,
+.project-item {
+	margin-block: var(--space-item);
+}
+
+.experience-item {
+	padding-left: 0.85rem;
+	border-left: 2px solid var(--color-rule);
+}
+
+.experience-heading,
+.project-item header {
+	color: var(--color-ink);
+	font-size: 1rem;
+	line-height: 1.35;
+	break-after: avoid-page;
+	page-break-after: avoid;
+}
+
+.experience-heading strong,
+.project-item strong,
+.skill-group strong {
+	font-weight: var(--font-weight-bold);
+}
+
+.experience-heading span {
+	color: var(--color-muted);
+	font-size: 0.9em;
+}
+
+.experience-company {
+	margin-block: 0.24rem 0.7rem;
+	color: var(--color-muted);
+	font-size: var(--font-size-meta);
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	break-after: avoid-page;
+	page-break-after: avoid;
+}
+
+.stack {
+	margin-block: 0.75rem 0;
+	color: var(--color-muted);
+	font-size: var(--font-size-meta);
+	font-weight: var(--font-weight-medium);
+	letter-spacing: 0.015em;
+}
+
+.project-item header {
+	margin-bottom: 0.5rem;
+}
+
+.contact-list,
+.skills-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact-list {
+	color: var(--color-subtle);
+	font-size: var(--font-size-meta);
+	line-height: 1.55;
+	overflow-wrap: anywhere;
+}
+
+.contact-list li + li {
+	margin-top: 0.38rem;
+}
+
+.skills-list {
+	font-size: var(--font-size-meta);
+	line-height: 1.5;
+}
+
+.skill-group + .skill-group {
+	margin-top: 0.65rem;
+}
+
+.page-break-before {
+	break-before: page;
+	page-break-before: always;
+}
+
+@media print {
+	.rich-text li {
+		break-inside: avoid-page;
+		page-break-inside: avoid;
+	}
+}
