@@ -7,9 +7,9 @@ import { validate } from './validate.js'
 import { startWatch } from './watch.js'
 
 const program = new Command()
-	.name('cv')
+	.name('renderume')
 	.description('Renderume — a local-first résumé renderer for developers')
-	.version('0.0.0')
+	.version('0.1.0')
 
 program
 	.command('init <directory>')

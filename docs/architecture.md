@@ -34,8 +34,9 @@ renderume/
 │   ├── architecture.md
 │   ├── development.md
 │   └── decisions/
+├── bin/                      # Executable `renderume` entry point
 ├── src/                      # CLI and compiler implementation
-├── templates/                # Complete starter projects copied by `cv init`
+├── templates/                # Complete starter projects copied by `renderume init`
 ├── tests/
 └── package.json
 ```
@@ -80,16 +81,26 @@ Themes are executable local code. Installing an untrusted theme has the same ris
 
 Each starter template contains one active `theme/` directory. The first-party
 `default` and `sidebar` templates are complete, self-contained CV projects and
-use the same normalized `ResumeData` and content format. `cv init` selects a
+use the same normalized `ResumeData` and content format. `renderume init` selects a
 template; this only changes the initial files, not the content contract.
 
 ### Renderer
 
 The renderer receives static HTML and resolved CSS and produces the PDF with Chromium. It must wait for fonts and local assets before printing. Output must remain selectable, searchable text rather than rasterized page images.
 
+## Distribution
+
+The repository is an installable Node CLI package. Its `bin/renderume.mjs` entry point
+starts the TypeScript CLI through the packaged `tsx` runtime. Package files are
+whitelisted to the executable, source, templates, README, and license.
+
+The package depends on Playwright and its matching Chromium browser package.
+The browser package downloads Chromium during `npm install`, so a user does not
+need a separate Playwright command before running `renderume build`.
+
 ### Watch
 
-`cv watch` builds the same HTML and PDF artifacts as `cv build`, serves them only
+`renderume watch` builds the same HTML and PDF artifacts as `renderume build`, serves them only
 on `127.0.0.1`, and observes `content/`, `theme/`, and `cv.config.yaml`. It
 prints separate `/html` and `/pdf` routes without opening a browser. The HTML
 route supports theme debugging in browser developer tools and reloads after a

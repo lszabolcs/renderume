@@ -40,9 +40,9 @@ The primary user is a frontend developer who is comfortable editing Markdown, YA
 ## User workflow
 
 ```bash
-cv init my-cv
+renderume init my-cv
 cd my-cv
-cv build
+renderume build
 ```
 
 The initial generated project includes a functioning example CV, a default theme, and comments or documentation sufficient to identify content and theme entry points.
@@ -51,12 +51,12 @@ The initial generated project includes a functioning example CV, a default theme
 
 | Command | Requirement |
 | --- | --- |
-| `cv init [directory]` | Create a starter CV project. |
-| `cv build` | Validate source, render HTML, and write HTML/PDF output. |
-| `cv validate` | Validate without generating output; use non-zero exit code on errors. |
-| `cv watch` | Serve local HTML/PDF previews and rebuild them on content or theme changes. |
+| `renderume init [directory]` | Create a starter CV project. |
+| `renderume build` | Validate source, render HTML, and write HTML/PDF output. |
+| `renderume validate` | Validate without generating output; use non-zero exit code on errors. |
+| `renderume watch` | Serve local HTML/PDF previews and rebuild them on content or theme changes. |
 
-`cv build` must report output paths. A failed validation must not overwrite the most recent valid PDF.
+`renderume build` must report output paths. A failed validation must not overwrite the most recent valid PDF.
 
 ## Source structure
 
@@ -166,7 +166,7 @@ Validation errors must name the file and field and offer an actionable message.
 ✖ content/profile.yaml
   contact.email: invalid email address
 
-Build aborted. Run `cv validate` after fixing the files.
+Build aborted. Run `renderume validate` after fixing the files.
 ```
 
 In watch mode, retain the latest valid document and surface the current validation error in both terminal and preview.
@@ -175,7 +175,7 @@ In watch mode, retain the latest valid document and surface the current validati
 
 The MVP is complete only when:
 
-1. `cv init` creates a usable starter project.
+1. `renderume init` creates a usable starter project.
 2. The starter project builds to `dist/cv.html` and `dist/cv.pdf`.
 3. An example with at least two pages has no clipped, overlapping, or missing content.
 4. A regular experience item moves intact to the next page when it fits there.

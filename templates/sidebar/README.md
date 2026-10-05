@@ -1,7 +1,7 @@
 # My CV
 
 This directory is your CV source. It intentionally has no `package.json`: the
-`cv` command is provided by Renderume, not this project.
+`renderume` command is provided by Renderume, not this project.
 
 ## Start here
 
@@ -14,22 +14,22 @@ This directory is your CV source. It intentionally has no `package.json`: the
 Check the source before creating files:
 
 ```bash
-cv validate
+renderume validate
 ```
 
 Build the static HTML and print-ready PDF:
 
 ```bash
-cv build
+renderume build
 ```
 
 For local development, run the live HTML and PDF preview:
 
 ```bash
-cv watch
+renderume watch
 ```
 
-`cv watch` prints an HTML URL with live reload for browser developer tools and a
+`renderume watch` prints an HTML URL with live reload for browser developer tools and a
 PDF URL for final A4 pagination. It never opens a browser window itself.
 
 ## Layout

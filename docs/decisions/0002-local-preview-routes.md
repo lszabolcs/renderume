@@ -5,7 +5,7 @@
 
 ## Decision
 
-`cv watch` will build both output artifacts and serve them from one
+`renderume watch` will build both output artifacts and serve them from one
 loopback-only server: `/html` for the generated static document and `/pdf` for
 the print-ready document. It watches the source files, prints both URLs, and
 never opens a browser.

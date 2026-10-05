@@ -5,7 +5,7 @@
 
 ## Decision
 
-`cv watch` will use Chokidar to observe CV source files and run each build in a
+`renderume watch` will use Chokidar to observe CV source files and run each build in a
 new Node process.
 
 ## Why

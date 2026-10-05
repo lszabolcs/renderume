@@ -4,24 +4,39 @@ Renderume is a local-first résumé renderer for developers.
 
 Write your CV in Markdown and YAML, customize its layout with React and CSS, then generate a print-ready PDF from the command line. Your CV remains a repository you own; no account, web editor, cloud storage, or AI workflow is required.
 
-> Status: pre-development. The product contract and development constraints are documented before implementation begins.
+> Status: MVP. The CLI, starter templates, local preview, and PDF rendering are ready for local use.
+
+## Install
+
+Renderume requires Node.js 22 or newer. Its Chromium dependency downloads during
+installation, so no separate browser setup is required.
+
+Install the current default branch directly from GitHub:
+
+```bash
+npm install -g github:lszabolcs/renderume
+```
 
 ## Intended workflow
 
 ```bash
-cv init my-cv
+renderume init my-cv
 cd my-cv
-cv validate
-cv build
-cv watch
+renderume validate
+renderume build
+renderume watch
 ```
+
+The first installation downloads Chromium because Renderume uses it to create
+consistent, print-ready PDFs. After that, builds work locally without sending CV
+content to a service.
 
 The generated project will keep content in YAML and Markdown, themes in TSX and CSS, and generated output outside version control.
 
-Create a starter project with `cv init my-cv`. `init` refuses an existing target
+Create a starter project with `renderume init my-cv`. `init` refuses an existing target
 directory, so it cannot overwrite a CV project by accident.
 
-`cv watch` builds both artifacts, prints two localhost URLs, and rebuilds after
+`renderume watch` builds both artifacts, prints two localhost URLs, and rebuilds after
 source changes; it never opens a browser tab by itself. `/html` reloads after a
 successful rebuild and supports browser developer tools. `/pdf` remains a raw
 PDF route for inspecting final A4 pagination.
@@ -49,12 +64,12 @@ my-cv/
 
 ## Templates
 
-`cv init` creates the one-column default starter. The optional sidebar starter
+`renderume init` creates the one-column default starter. The optional sidebar starter
 uses the same YAML and Markdown content contract, but starts with a CSS Grid
 layout and a concise contact-and-skills sidebar:
 
 ```bash
-cv init my-cv --template sidebar
+renderume init my-cv --template sidebar
 ```
 
 Each template is a complete, self-contained CV project. Templates do not change

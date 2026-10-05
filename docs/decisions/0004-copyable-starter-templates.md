@@ -6,7 +6,7 @@
 ## Decision
 
 First-party layout alternatives live under `templates/` as complete,
-self-contained CV projects. `cv init` copies one selected template; it defaults
+self-contained CV projects. `renderume init` copies one selected template; it defaults
 to `default` and accepts `--template sidebar` for the CSS Grid sidebar layout.
 
 ## Why
@@ -19,5 +19,5 @@ user-owned project. Complete templates are easy to inspect, copy, and modify.
 
 - Every template includes its own content samples, configuration, and theme.
 - Templates share the same normalized `ResumeData` and YAML/Markdown contract.
-- `cv init` remains a direct directory copy rather than assembling files from
+- `renderume init` remains a direct directory copy rather than assembling files from
   shared sample data and layout sources.

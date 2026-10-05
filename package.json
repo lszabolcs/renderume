@@ -1,14 +1,32 @@
 {
 	"name": "renderume",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"private": true,
 	"description": "A local-first résumé renderer for developers.",
 	"type": "module",
+	"bin": {
+		"renderume": "./bin/renderume.mjs"
+	},
+	"files": [
+		"bin",
+		"src",
+		"templates",
+		"README.md",
+		"LICENSE"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lszabolcs/renderume.git"
+	},
+	"bugs": {
+		"url": "https://github.com/lszabolcs/renderume/issues"
+	},
+	"homepage": "https://github.com/lszabolcs/renderume#readme",
 	"engines": {
 		"node": ">=22"
 	},
 	"scripts": {
-		"cv": "tsx src/cli.ts",
+		"renderume": "node ./bin/renderume.mjs",
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"lint": "biome lint .",
@@ -17,13 +35,15 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@playwright/browser-chromium": "1.63.0",
 		"chokidar": "^5.0.0",
 		"commander": "^14.0.0",
 		"gray-matter": "^4.0.3",
 		"markdown-it": "^14.1.0",
-		"playwright": "^1.55.0",
+		"playwright": "1.63.0",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
+		"tsx": "^4.20.0",
 		"yaml": "^2.8.1"
 	},
 	"devDependencies": {
@@ -32,7 +52,6 @@
 		"@types/node": "^24.0.0",
 		"@types/react": "^19.1.12",
 		"@types/react-dom": "^19.1.9",
-		"tsx": "^4.20.0",
 		"typescript": "^5.9.0",
 		"vitest": "^3.2.4"
 	}

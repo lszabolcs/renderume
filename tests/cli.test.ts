@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 const projectRoot = path.resolve(import.meta.dirname, '..')
 const exampleRoot = path.join(projectRoot, 'examples/minimal-cv')
+const packageBinPath = path.join(projectRoot, 'bin/renderume.mjs')
 const tsxPath = path.join(projectRoot, 'node_modules/tsx/dist/cli.mjs')
 const temporaryRoots: string[] = []
 
@@ -18,9 +19,20 @@ async function copyExample(): Promise<string> {
 }
 
 async function runCli(...args: string[]): Promise<{ code: number | null; output: string }> {
+	return runCommand([tsxPath, 'src/cli.ts', ...args])
+}
+
+async function runPackageBin(...args: string[]): Promise<{ code: number | null; output: string }> {
+	return runCommand([packageBinPath, ...args], tmpdir())
+}
+
+async function runCommand(
+	args: string[],
+	cwd = projectRoot,
+): Promise<{ code: number | null; output: string }> {
 	return new Promise((resolve, reject) => {
-		const child = spawn(process.execPath, [tsxPath, 'src/cli.ts', ...args], {
-			cwd: projectRoot,
+		const child = spawn(process.execPath, args, {
+			cwd,
 			stdio: ['ignore', 'pipe', 'pipe'],
 		})
 		let output = ''
@@ -42,7 +54,7 @@ afterEach(async () => {
 	)
 })
 
-describe('cv validate', () => {
+describe('renderume validate', () => {
 	it('validates a CV without creating dist output', async () => {
 		const root = await copyExample()
 		const result = await runCli('validate', root)
@@ -74,9 +86,16 @@ describe('CLI commands', () => {
 		expect(result.output).toContain('watch [directory]')
 		expect(result.output).not.toContain('preview [directory]')
 	})
+
+	it('runs through the packaged renderume binary', async () => {
+		const result = await runPackageBin('--help')
+
+		expect(result.code).toBe(0)
+		expect(result.output).toContain('Usage: renderume [options]')
+	})
 })
 
-describe('cv init', () => {
+describe('renderume init', () => {
 	it('creates a starter project that validates', async () => {
 		const parent = await mkdtemp(path.join(tmpdir(), 'renderume-init-test-'))
 		temporaryRoots.push(parent)
