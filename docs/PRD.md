@@ -69,6 +69,7 @@ my-cv/
 │   ├── experience/
 │   ├── projects/
 │   ├── skills.yaml
+│   ├── languages.yaml
 │   └── education.md
 ├── theme/
 │   ├── Resume.tsx

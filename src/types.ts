@@ -42,6 +42,11 @@ export type SkillGroup = {
 	items: string[]
 }
 
+export type Language = {
+	language: string
+	level: string
+}
+
 export type ResumeConfig = {
 	locale: string
 	output: {
@@ -58,5 +63,6 @@ export type Resume = {
 	experience: Experience[]
 	projects: Project[]
 	skills: SkillGroup[]
+	languages: Language[]
 	educationHtml?: string
 }

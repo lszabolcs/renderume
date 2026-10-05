@@ -185,6 +185,20 @@ groups:
     items: [Git, Playwright, Vite]
 ```
 
+### `content/languages.yaml`
+
+This optional file contains a structured list of languages. Each entry requires
+free-text `language` and `level` values. Omit the file when there is no language
+section to show.
+
+```yaml
+languages:
+  - language: English
+    level: Full professional proficiency
+  - language: Hungarian
+    level: Native
+```
+
 Run `renderume validate` after editing. It reports the source file and field for
 missing or incorrectly typed values. Unrecognized YAML and frontmatter fields
 are not passed to the theme, so do not use them as custom data without extending

@@ -7,6 +7,7 @@ import { renderMarkdown } from './render-markdown.js'
 import type {
 	ContactLink,
 	Experience,
+	Language,
 	Profile,
 	Project,
 	Resume,
@@ -87,6 +88,18 @@ async function readYaml(
 	return {
 		data: sourceRecord(parseYaml(await readFile(filePath, 'utf8')), relativePath),
 		source: relativePath,
+	}
+}
+
+async function readOptionalYaml(
+	root: string,
+	relativePath: string,
+): Promise<{ data: Record<string, unknown>; source: string } | undefined> {
+	try {
+		return await readYaml(root, relativePath)
+	} catch (error) {
+		if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined
+		throw error
 	}
 }
 
@@ -228,8 +241,26 @@ async function loadSkills(root: string): Promise<SkillGroup[]> {
 	})
 }
 
+async function loadLanguages(root: string): Promise<Language[]> {
+	const document = await readOptionalYaml(root, 'content/languages.yaml')
+	if (!document) return []
+
+	const { data, source } = document
+	if (!Array.isArray(data.languages)) {
+		throw new Error(`${source}: languages must be a list`)
+	}
+
+	return data.languages.map((item, index) => {
+		const value = sourceRecord(item, source)
+		return {
+			language: requiredString(value.language, `languages.${index}.language`, source),
+			level: requiredString(value.level, `languages.${index}.level`, source),
+		}
+	})
+}
+
 export async function loadResume(root: string): Promise<Resume> {
-	const [config, profile, summaryHtml, experience, projects, skills, educationHtml] =
+	const [config, profile, summaryHtml, experience, projects, skills, languages, educationHtml] =
 		await Promise.all([
 			loadConfig(root),
 			loadProfile(root),
@@ -237,6 +268,7 @@ export async function loadResume(root: string): Promise<Resume> {
 			loadExperience(root),
 			loadProjects(root),
 			loadSkills(root),
+			loadLanguages(root),
 			readOptionalMarkdown(root, 'content/education.md'),
 		])
 
@@ -244,5 +276,5 @@ export async function loadResume(root: string): Promise<Resume> {
 		throw new Error('content/summary.md: summary is required')
 	}
 
-	return { config, profile, summaryHtml, experience, projects, skills, educationHtml }
+	return { config, profile, summaryHtml, experience, projects, skills, languages, educationHtml }
 }

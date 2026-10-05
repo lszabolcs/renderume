@@ -8,8 +8,8 @@ This directory is your CV source. It intentionally has no `package.json`: the
 1. Replace the placeholder details in `content/profile.yaml`.
 2. Write a short introduction in `content/summary.md`.
 3. Add or remove Markdown files in `content/experience/` and `content/projects/`.
-4. Update grouped skills in `content/skills.yaml` and optional education in
-   `content/education.md`.
+4. Update grouped skills in `content/skills.yaml`, optional languages in
+   `content/languages.yaml`, and optional education in `content/education.md`.
 
 Check the source before creating files:
 

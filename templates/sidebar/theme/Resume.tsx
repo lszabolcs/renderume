@@ -37,6 +37,10 @@ type ResumeData = {
 		name: string
 		items: string[]
 	}>
+	languages: Array<{
+		language: string
+		level: string
+	}>
 	educationHtml?: string
 }
 
@@ -126,7 +130,7 @@ export function Resume({ cv }: ResumeProps) {
 					) : null}
 				</div>
 
-				<aside className="resume-sidebar" aria-label="Contact and skills">
+				<aside className="resume-sidebar" aria-label="Contact, skills, and languages">
 					<section className="section section-keep-together">
 						<h2 className="section-title">Contact</h2>
 						<ul className="contact-list">
@@ -154,6 +158,19 @@ export function Resume({ cv }: ResumeProps) {
 								{cv.skills.map((group) => (
 									<li className="skill-group" key={group.name}>
 										<strong>{group.name}:</strong> {group.items.join(', ')}
+									</li>
+								))}
+							</ul>
+						</section>
+					) : null}
+
+					{cv.languages.length > 0 ? (
+						<section className="section section-keep-together">
+							<h2 className="section-title">Languages</h2>
+							<ul className="skills-list">
+								{cv.languages.map((item) => (
+									<li className="skill-group" key={item.language}>
+										<strong>{item.language}:</strong> {item.level}
 									</li>
 								))}
 							</ul>

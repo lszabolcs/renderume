@@ -55,6 +55,10 @@ describe('loadResume', () => {
 			name: 'Frontend',
 			items: ['TypeScript', 'React', 'CSS', 'Accessibility', 'Performance'],
 		})
+		expect(resume.languages).toEqual([
+			{ language: 'Hungarian', level: 'Native' },
+			{ language: 'English', level: 'C1' },
+		])
 		expect(resume.educationHtml).toContain('BSc')
 	})
 
@@ -92,6 +96,25 @@ describe('loadResume', () => {
 		await expect(loadResume(root)).rejects.toThrow(
 			'content/profile.yaml: contact.links.0.label is required',
 		)
+	})
+
+	it('reports the source file and field for an invalid language', async () => {
+		const root = await copyExample()
+		await writeFile(
+			path.join(root, 'content/languages.yaml'),
+			'languages:\n  - language: English\n',
+		)
+
+		await expect(loadResume(root)).rejects.toThrow(
+			'content/languages.yaml: languages.0.level is required',
+		)
+	})
+
+	it('uses an empty language list when the optional file is absent', async () => {
+		const root = await copyExample()
+		await rm(path.join(root, 'content/languages.yaml'))
+
+		await expect(loadResume(root)).resolves.toMatchObject({ languages: [] })
 	})
 
 	it('rejects an empty Markdown summary', async () => {

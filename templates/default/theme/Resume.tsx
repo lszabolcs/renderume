@@ -43,6 +43,10 @@ type ResumeData = {
 		name: string
 		items: string[]
 	}>
+	languages: Array<{
+		language: string
+		level: string
+	}>
 	educationHtml?: string
 }
 
@@ -101,6 +105,18 @@ export function Resume({ cv }: ResumeProps) {
 					<ul>
 						{cv.skills.map((group) => (
 							<SkillGroup {...group} key={group.name} />
+						))}
+					</ul>
+				</Section>
+			) : null}
+
+			{cv.languages.length > 0 ? (
+				<Section keepTogether title="Languages">
+					<ul>
+						{cv.languages.map((item) => (
+							<li className="skill-group" key={item.language}>
+								<strong>{item.language}:</strong> {item.level}
+							</li>
 						))}
 					</ul>
 				</Section>
