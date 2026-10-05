@@ -1,3 +1,5 @@
+/// <reference path="../jsx.d.ts" />
+
 type SkillGroupProps = {
 	items: string[]
 	name: string

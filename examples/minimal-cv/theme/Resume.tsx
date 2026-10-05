@@ -1,3 +1,4 @@
+/// <reference path="./jsx.d.ts" />
 // biome-ignore-all lint/security/noDangerouslySetInnerHtml: Renderume parses Markdown with raw HTML disabled before it reaches the theme.
 import { ExperienceItem } from './components/ExperienceItem.js'
 import { KeepTogether } from './components/KeepTogether.js'

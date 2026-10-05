@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
+/// <reference path="../jsx.d.ts" />
 
 type KeepTogetherProps = {
-	children: ReactNode
+	children: unknown
 	className?: string
 	pageBreakBefore?: boolean
 }
@@ -11,5 +11,5 @@ export function KeepTogether({ children, className, pageBreakBefore = false }: K
 		.filter(Boolean)
 		.join(' ')
 
-	return <div className={classNames}>{children}</div>
+	return <div className={classNames}>{children as never}</div>
 }

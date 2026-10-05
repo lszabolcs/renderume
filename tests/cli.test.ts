@@ -111,6 +111,7 @@ describe('renderume init', () => {
 		await expect(
 			access(path.join(target, 'theme/components/ExperienceItem.tsx')),
 		).resolves.toBeUndefined()
+		await expect(access(path.join(target, 'theme/jsx.d.ts'))).resolves.toBeUndefined()
 
 		const validation = await runCli('validate', target)
 		expect(validation.code).toBe(0)
@@ -126,6 +127,7 @@ describe('renderume init', () => {
 		expect(await readFile(path.join(target, 'theme/Resume.tsx'), 'utf8')).toContain(
 			'sidebar-layout',
 		)
+		await expect(access(path.join(target, 'theme/jsx.d.ts'))).resolves.toBeUndefined()
 		await expect(access(path.join(target, 'package.json'))).rejects.toMatchObject({
 			code: 'ENOENT',
 		})

@@ -58,6 +58,7 @@ my-cv/
 ├── theme/
 │   ├── Resume.tsx            # Theme entry point
 │   ├── components/
+	│   ├── jsx.d.ts             # Minimal standalone-editor JSX types
 │   ├── styles.css
 │   └── print.css
 ├── public/                   # Optional local assets

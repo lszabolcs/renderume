@@ -41,4 +41,7 @@ details and skills in the sidebar, and keep long-form content in the main column
 The CSS custom properties at the top of `theme/styles.css` control typography,
 colors, spacing, and sidebar width.
 
+`theme/jsx.d.ts` supplies the minimal JSX editor types, so you can open this CV
+directory directly without adding a `package.json` or installing dependencies.
+
 Generated HTML and PDF files are written to `dist/`; do not edit or commit them.
