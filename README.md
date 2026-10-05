@@ -75,6 +75,121 @@ renderume init my-cv --template sidebar
 Each template is a complete, self-contained CV project. Templates do not change
 the content format; they only supply different initial theme and sample files.
 
+## Content reference
+
+All paths below are relative to the generated CV directory. YAML holds
+structured data; Markdown holds long-form content. The renderer passes
+normalized data to `theme/Resume.tsx`, so themes do not read these files
+directly.
+
+### `cv.config.yaml`
+
+| Field | Required | Value |
+| --- | --- | --- |
+| `locale` | Yes | Locale string, for example `en-GB`. |
+| `output.filename` | Yes | PDF filename ending in `.pdf`, without a path. |
+| `output.pageSize` | Yes | `A4`. |
+| `output.margin` | Yes | CSS print length, for example `16mm`. |
+
+### `content/profile.yaml`
+
+| Field | Required | Value |
+| --- | --- | --- |
+| `name` | Yes | Full name. |
+| `title` | Yes | Professional title. |
+| `location` | No | Location string. |
+| `contact.email` | Yes | E-mail address. |
+| `contact.phone` | No | Phone number. |
+| `contact.links` | No | List of `{ label, url }` link objects; defaults to `[]`. |
+
+```yaml
+contact:
+  email: you@example.com
+  phone: "+1 555 0100"
+  links:
+    - label: Portfolio
+      url: https://your-site.example
+    - label: GitHub
+      url: https://github.com/your-handle
+```
+
+To migrate an older profile, replace `website`, `github`, and `linkedin` with
+corresponding labeled entries in `contact.links`.
+
+### `content/summary.md` and `content/education.md`
+
+`summary.md` is required and must contain Markdown. `education.md` is optional;
+omit it when the CV has no education section. Both are rendered as Markdown.
+
+### `content/experience/*.md`
+
+Each Markdown file creates one experience entry. Its filename becomes a stable
+internal identifier; use a descriptive, unique filename such as
+`acme-senior-frontend-engineer.md`.
+
+| Frontmatter field | Required | Value |
+| --- | --- | --- |
+| `company` | Yes | Company or organization name. |
+| `role` | Yes | Role title. |
+| `start` | Yes | Start date, conventionally `YYYY-MM`. |
+| `end` | No | End date in `YYYY-MM`, or `present`. |
+| `location` | No | Location string. |
+| `stack` | No | List of technology strings; defaults to `[]`. |
+| `order` | No | Integer sort order; higher values appear first, default `0`. |
+| `pageBreakBefore` | No | `true` starts the entry on a new page; default `false`. |
+
+The Markdown body is required. Use ordinary Markdown paragraphs and bullet lists
+for responsibilities and outcomes.
+
+```md
+---
+company: Acme Inc.
+role: Senior Frontend Engineer
+start: 2023-03
+end: present
+stack: [TypeScript, React, Playwright]
+order: 10
+pageBreakBefore: false
+---
+
+- Built a reusable component system.
+- Improved a critical flow's LCP by 38%.
+```
+
+### `content/projects/*.md`
+
+Each Markdown file creates one project entry. Projects use the same `stack`,
+`order`, and `pageBreakBefore` behavior as experience entries.
+
+| Frontmatter field | Required | Value |
+| --- | --- | --- |
+| `name` | Yes | Project name. |
+| `url` | No | Project URL. |
+| `stack` | No | List of technology strings; defaults to `[]`. |
+| `order` | No | Integer sort order; higher values appear first, default `0`. |
+| `pageBreakBefore` | No | `true` starts the entry on a new page; default `false`. |
+
+The Markdown body is required. Omit the entire `projects/` directory when the CV
+has no projects.
+
+### `content/skills.yaml`
+
+`groups` is required and contains named skill groups. Each group requires a
+`name` and an `items` list of strings.
+
+```yaml
+groups:
+  - name: Frontend
+    items: [TypeScript, React, CSS, Accessibility]
+  - name: Tooling
+    items: [Git, Playwright, Vite]
+```
+
+Run `renderume validate` after editing. It reports the source file and field for
+missing or incorrectly typed values. Unrecognized YAML and frontmatter fields
+are not passed to the theme, so do not use them as custom data without extending
+the content loader first.
+
 ## Documentation
 
 - [Product requirements](docs/PRD.md)

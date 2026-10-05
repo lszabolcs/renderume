@@ -3,6 +3,11 @@ title: Frontend Engineer
 location: Your city, Country
 contact:
   email: you@example.com
-  website: https://your-site.example
-  github: https://github.com/your-handle
-  linkedin: https://www.linkedin.com/in/your-handle
+  phone: "+1 555 0100"
+  links:
+    - label: Portfolio
+      url: https://your-site.example
+    - label: GitHub
+      url: https://github.com/your-handle
+    - label: LinkedIn
+      url: https://www.linkedin.com/in/your-handle

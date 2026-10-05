@@ -12,9 +12,11 @@ type ResumeData = {
 		location?: string
 		contact: {
 			email: string
-			website?: string
-			github?: string
-			linkedin?: string
+			phone?: string
+			links: Array<{
+				label: string
+				url: string
+			}>
 		}
 	}
 	summaryHtml: string
@@ -48,15 +50,8 @@ type ResumeProps = {
 	cv: ResumeData
 }
 
-function linkLabel(url: string): string {
-	return url.replace(/^https?:\/\//, '')
-}
-
 export function Resume({ cv }: ResumeProps) {
 	const { contact } = cv.profile
-	const links = [contact.website, contact.github, contact.linkedin].filter((url): url is string =>
-		Boolean(url),
-	)
 	const sections = [
 		<Section keepTogether key="summary" title="Summary">
 			<div className="rich-text" dangerouslySetInnerHTML={{ __html: cv.summaryHtml }} />
@@ -101,10 +96,16 @@ export function Resume({ cv }: ResumeProps) {
 				</p>
 				<p className="resume-contact">
 					<a href={`mailto:${contact.email}`}>{contact.email}</a>
-					{links.map((url) => (
-						<span key={url}>
+					{contact.phone ? (
+						<span>
 							{' · '}
-							<a href={url}>{linkLabel(url)}</a>
+							<a href={`tel:${contact.phone}`}>{contact.phone}</a>
+						</span>
+					) : null}
+					{contact.links.map((link) => (
+						<span key={link.url}>
+							{' · '}
+							<a href={link.url}>{link.label}</a>
 						</span>
 					))}
 				</p>

@@ -116,7 +116,8 @@ intact.
 The initial data format uses YAML for structured fields and Markdown for long-form content. Each experience item is one Markdown file with YAML frontmatter.
 
 `cv.config.yaml` supplies the output filename and A4 margin. `profile.yaml` holds
-the name, title, optional location, and a nested `contact` object. `skills.yaml`
+the name, title, optional location, and a nested `contact` object with required
+e-mail, optional phone number, and an optional labeled-link list. `skills.yaml`
 contains named groups of string items;
 `education.md` is optional. Projects follow the same frontmatter-plus-Markdown
 shape as experience items, with `name` in place of `company`, `role`, and dates.

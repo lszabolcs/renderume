@@ -3,6 +3,11 @@ title: Frontend Engineer
 location: London, United Kingdom
 contact:
   email: alex@example.com
-  website: https://alex.example.com
-  github: https://github.com/alexmorgan
-  linkedin: https://www.linkedin.com/in/alexmorgan
+  phone: "+44 20 7946 0958"
+  links:
+    - label: Portfolio
+      url: https://alex.example.com
+    - label: GitHub
+      url: https://github.com/alexmorgan
+    - label: LinkedIn
+      url: https://www.linkedin.com/in/alexmorgan

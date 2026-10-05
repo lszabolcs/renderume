@@ -6,9 +6,11 @@ type ResumeData = {
 		location?: string
 		contact: {
 			email: string
-			website?: string
-			github?: string
-			linkedin?: string
+			phone?: string
+			links: Array<{
+				label: string
+				url: string
+			}>
 		}
 	}
 	summaryHtml: string
@@ -52,9 +54,6 @@ function period(start: string, end?: string): string {
 
 export function Resume({ cv }: ResumeProps) {
 	const { contact } = cv.profile
-	const links = [contact.website, contact.github, contact.linkedin].filter((url): url is string =>
-		Boolean(url),
-	)
 
 	return (
 		<main className="sidebar-resume">
@@ -134,10 +133,15 @@ export function Resume({ cv }: ResumeProps) {
 							<li>
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</li>
+							{contact.phone ? (
+								<li>
+									<a href={`tel:${contact.phone}`}>{contact.phone}</a>
+								</li>
+							) : null}
 							{cv.profile.location ? <li>{cv.profile.location}</li> : null}
-							{links.map((url) => (
-								<li key={url}>
-									<a href={url}>{linkLabel(url)}</a>
+							{contact.links.map((link) => (
+								<li key={link.url}>
+									<a href={link.url}>{link.label}</a>
 								</li>
 							))}
 						</ul>

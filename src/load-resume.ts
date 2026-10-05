@@ -4,7 +4,15 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import { parse as parseYaml } from 'yaml'
 import { renderMarkdown } from './render-markdown.js'
-import type { Experience, Profile, Project, Resume, ResumeConfig, SkillGroup } from './types.js'
+import type {
+	ContactLink,
+	Experience,
+	Profile,
+	Project,
+	Resume,
+	ResumeConfig,
+	SkillGroup,
+} from './types.js'
 
 function sourceRecord(value: unknown, source: string): Record<string, unknown> {
 	if (typeof value !== 'object' || value === null || Array.isArray(value)) {
@@ -36,6 +44,21 @@ function stringList(value: unknown, field: string, source: string): string[] {
 	}
 
 	return value.map((item) => item.trim())
+}
+
+function contactLinks(value: unknown, field: string, source: string): ContactLink[] {
+	if (value === undefined) return []
+	if (!Array.isArray(value)) {
+		throw new Error(`${source}: ${field} must be a list`)
+	}
+
+	return value.map((item, index) => {
+		const link = sourceRecord(item, source)
+		return {
+			label: requiredString(link.label, `${field}.${index}.label`, source),
+			url: requiredString(link.url, `${field}.${index}.url`, source),
+		}
+	})
 }
 
 function optionalNumber(value: unknown, field: string, source: string): number {
@@ -113,9 +136,8 @@ async function loadProfile(root: string): Promise<Profile> {
 		location: optionalString(data.location, 'location', source),
 		contact: {
 			email: requiredString(contact.email, 'contact.email', source),
-			website: optionalString(contact.website, 'contact.website', source),
-			github: optionalString(contact.github, 'contact.github', source),
-			linkedin: optionalString(contact.linkedin, 'contact.linkedin', source),
+			phone: optionalString(contact.phone, 'contact.phone', source),
+			links: contactLinks(contact.links, 'contact.links', source),
 		},
 	}
 }

@@ -4,10 +4,14 @@ export type Profile = {
 	location?: string
 	contact: {
 		email: string
-		website?: string
-		github?: string
-		linkedin?: string
+		phone?: string
+		links: ContactLink[]
 	}
+}
+
+export type ContactLink = {
+	label: string
+	url: string
 }
 
 export type Experience = {

@@ -28,6 +28,14 @@ describe('loadResume', () => {
 		expect(resume.config.output.filename).toBe('alex-morgan-cv.pdf')
 		expect(resume.profile.name).toBe('Alex Morgan')
 		expect(resume.profile.contact.email).toBe('alex@example.com')
+		expect(resume.profile.contact).toMatchObject({
+			phone: '+44 20 7946 0958',
+			links: [
+				{ label: 'Portfolio', url: 'https://alex.example.com' },
+				{ label: 'GitHub', url: 'https://github.com/alexmorgan' },
+				{ label: 'LinkedIn', url: 'https://www.linkedin.com/in/alexmorgan' },
+			],
+		})
 		expect(resume.summaryHtml).toContain('Frontend engineer')
 		expect(resume.experience).toHaveLength(3)
 		expect(resume.experience.map((item) => item.company)).toEqual([
@@ -71,6 +79,18 @@ describe('loadResume', () => {
 
 		await expect(loadResume(root)).rejects.toThrow(
 			'content/experience/northstar.md: role is required',
+		)
+	})
+
+	it('reports the source file and field for an invalid contact link', async () => {
+		const root = await copyExample()
+		await writeFile(
+			path.join(root, 'content/profile.yaml'),
+			'name: Alex Morgan\ntitle: Frontend Engineer\ncontact:\n  email: alex@example.com\n  links:\n    - url: https://example.com\n',
+		)
+
+		await expect(loadResume(root)).rejects.toThrow(
+			'content/profile.yaml: contact.links.0.label is required',
 		)
 	})
 
